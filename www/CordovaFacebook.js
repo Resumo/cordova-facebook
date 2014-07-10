@@ -117,6 +117,23 @@ var CC;
                     failcb(err);
             }, "CordovaFacebook", "invite", [message, title]);
         };
+
+        CordovaFacebook.prototype.api = function (path, successcb, failcb) {
+            if (!window.cordova) {
+                if (failcb)
+                    failcb("no cordova");
+                return;
+            }
+            window.cordova.exec(function (response) {
+                if (successcb) {
+                    successcb(response);
+                }
+            }, function (err) {
+                console.log("invite call failed with error: " + err);
+                if (failcb)
+                    failcb(err);
+            }, "CordovaFacebook", "graphApi", [path]);
+        };
         return CordovaFacebook;
     })();
     CC.CordovaFacebook = CordovaFacebook;
