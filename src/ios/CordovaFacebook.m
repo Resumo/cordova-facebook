@@ -231,7 +231,8 @@ static NSMutableArray *publishPermissions;
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
 
         // If there's one, just open the session silently, without showing the user the login UI
-        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
+//        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
+        [FBSession openActiveSessionWithReadPermissions:appPermissions
                                            allowLoginUI:NO
                                       completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                           // Handler for session state changes
@@ -264,6 +265,7 @@ static NSMutableArray *publishPermissions;
     [CordovaFacebook setLoginCallbackId:command.callbackId];
     // Open a session showing the user the login UI
     // You must ALWAYS ask for basic_info permissions when opening a session
+//    [FBSession openActiveSessionWithReadPermissions:readPermissions
     [FBSession openActiveSessionWithReadPermissions:readPermissions
                                        allowLoginUI:YES
                                   completionHandler:
