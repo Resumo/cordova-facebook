@@ -471,6 +471,35 @@ static NSMutableArray *publishPermissions;
                                               friendCache:nil];
 }
 
+- (void)friends:(CDVInvokedUrlCommand *)command
+{
+    if([FBSession.activeSession isOpen] == NO) { // not have a session to post
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"no active session"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        return;
+    }
+
+    //NSString *graphPath = [command argumentAtIndex:0];
+    NSString *graphPath = @"me/friends?fields=id,name,picture";
+
+    NSLog(@"Graph Path = %@", graphPath);
+    [FBRequestConnection
+     startWithGraphPath: graphPath
+     completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+         CDVPluginResult* pluginResult = nil;
+         if (!error) {
+             NSDictionary *response = (NSDictionary *) result;
+
+             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:response];
+         } else {
+             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                              messageAsString:[error localizedDescription]];
+         }
+
+         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+     }];
+}
+
 - (void)graphApi:(CDVInvokedUrlCommand *)command
 {
     if([FBSession.activeSession isOpen] == NO) { // not have a session to post
