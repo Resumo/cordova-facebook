@@ -47,7 +47,7 @@ Here is what to do for Android before installing our plugin.
 
 ##Installing the plugin
 To add this plugin just type:
-```cordova plugin add https://github.com/ccsoft/cordova-facebook.git```
+```cordova plugin add https://github.com/resumo/cordova-facebook.git```
 
 To remove this plugin type:
 ```cordova plugin remove com.ccsoft.plugin.CordovaFacebook```
