@@ -57,7 +57,9 @@ public class CordovaFacebook extends CordovaPlugin {
             // hardcoded for now
             Permission[] permissions = new Permission[] {
                     Permission.PUBLIC_PROFILE,
-                    Permission.USER_FRIENDS                 
+                    Permission.USER_FRIENDS,
+                    Permission.EMAIL,
+                    Permission.USER_BIRTHDAY
             };
 
             String appId = args.getString(0);
